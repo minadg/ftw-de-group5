@@ -214,7 +214,6 @@ FROM clean.stg_chinook__invoice_divine;
 
 **Best Practices Learned:**
 
-* Git for version control of dbt projects
 * Clear naming conventions for tables and models
 * Documenting assumptions and changes for smoother collaboration
 
@@ -263,19 +262,11 @@ Metabase dashboards included:
 * Importance of **documentation** for onboarding and debugging
 * Value of **dashboards** in storytelling with data
 
-**Real-World Connection:**
-This exercise mirrors how **data engineering teams** in industry build **ETL pipelines, data warehouses, and BI dashboards** for business decision-making.
-
 ---
 
 ## 7. Future Improvements
 
-**Next Steps with More Time:**
-
-* Add orchestration using **Airflow or Prefect**
-* Implement **data quality tests** (dbt tests, Great Expectations)
-* Optimize queries for larger datasets
-* Automate dashboard refreshes
+* Performing data validation as the first process
 
 **Generalization:**
 This pipeline approach could be applied to other business domains, such as:
