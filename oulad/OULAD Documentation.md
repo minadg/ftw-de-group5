@@ -86,12 +86,12 @@ docker compose --profile jobs run dlt python pipelines/09-dlt-oulad-pipeline.py
 ### CLEAN Layer – dbt Transformations
 **Example dbt model:**
 ```sql
-{{ config(materialized="view", schema="clean", tags=["staging","chinook"]) }}
+{{ config(materialized="view", schema="clean", tags=["staging","oulad"]) }}
 -- Standardize column names/types per table; no business logic.
 select
   cast(artist_id as Nullable(Int64))  as artist_id,
   cast(name      as Nullable(String)) as artist_name
-from {{ source('raw', 'chinook___artists_mina') }}
+from {{ source('raw', 'grp5__stg_oulad_student_assessment') }}
 ```
 **Source definition:**
 ```yaml
@@ -213,4 +213,5 @@ This pipeline approach could be applied to other business domains, such as:
 * E-commerce (customer purchase history → sales insights)
 * Education (student activity logs → dropout prediction)
 * Entertainment (streaming analytics → top performers & content trends)
+
 ---
