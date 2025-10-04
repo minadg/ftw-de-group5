@@ -84,14 +84,18 @@ docker compose --profile jobs run dlt python pipelines/09-dlt-oulad-pipeline.py
 ```
 ---
 ### CLEAN Layer – dbt Transformations
-**Example dbt model:**
+**Example dbt model:** grp5_stg_oulad_student_assessment.sql
 ```sql
-{{ config(materialized="view", schema="clean", tags=["staging","oulad"]) }}
--- Standardize column names/types per table; no business logic.
+{{ config(materialized="table", schema="clean", tags=["staging","oulad"]) }} 
+
+-- Standardize names and types for student assessment
 select
-  cast(artist_id as Nullable(Int64))  as artist_id,
-  cast(name      as Nullable(String)) as artist_name
-from {{ source('raw', 'grp5__stg_oulad_student_assessment') }}
+  cast(id_assessment  as Nullable(Int64)) as assessment_id,
+  cast(id_student     as Nullable(Int64)) as student_id,
+  cast(date_submitted as Nullable(Int64)) as date_submitted,
+  cast(is_banked      as Nullable(Int64)) as is_banked,
+  cast(score          as Nullable(Int64)) as score
+from {{ source('raw', 'grp5_oulad___student_assessment') }}
 ```
 **Source definition:**
 ```yaml
@@ -105,57 +109,47 @@ sources:
 ---
 ### MART Layer – Star Schema Design
 **Fact Table:**
-`FactAssessment` (transaction-level sales data: ).
-
-`FactVLEInteractions` (transaction-level sales data: ).
+* `grp5_oulad_fact_assessment`
+* `grp5_oulad_vleinteraction` 
 
 **Dimension Tables:**
-* `DimStudent`
-* `DimDate`
-* `DimPresentation`
-* `DimModule`
+* `grp5_oulad_dim_student`
+* `grp5_oulad_dim_assessment`
+* `grp5_oulad_dim_courses`
+* `grp5_oulad_dim_vle`
 
 **Fact-Dimension SQL Example:**
 ```sql
-DROP TABLE IF EXISTS sandbox.FactInvoiceLine2_Divine;
-CREATE TABLE sandbox.FactInvoiceLine2_Divine
+DROP TABLE IF EXISTS mart.grp5_oulad_fact_vleinteraction;
+
+CREATE TABLE mart.grp5_oulad_fact_vleinteraction
 engine = MergeTree
 ORDER BY tuple()
 AS
 SELECT
-   il.invoice_line_id           AS InvoiceLineKey,
-   il.quantity                  AS Quantity,
-   il.unit_price                AS UnitPrice,
-   il.unit_price * il.quantity  AS LineAmount,
-   il.track_id                  AS TrackKey,
-   g.genre_id                   AS GenreKey,
-   c.customer_id                AS CustomerKey,
-   DATE(i.invoice_date)         AS DateKey,
-   e.employee_id                AS EmployeeKey,
-   al.album_id                  AS AlbumKey,
-   ar.artist_id                 AS ArtistKey
-FROM clean.stg_chinook__invoice_line_divine il
-JOIN clean.stg_chinook__invoice_divine      i     ON il.invoice_id = i.invoice_id
-JOIN clean.stg_chinook__customer_divine     c     ON i.customer_id = c.customer_id
-JOIN clean.stg_chinook__employee_divine     e     ON c.support_rep_id = e.employee_id
-JOIN clean.stg_chinook__track_divine        t     ON il.track_id = t.track_id
-JOIN clean.stg_chinook__genre_divine        g     ON t.genre_id = g.genre_id
-JOIN clean.stg_chinook__album_divine        al    ON t.album_id = al.album_id
-JOIN clean.stg_chinook__artist_divine       ar    ON al.artist_id = ar.artist_id;
+	CONCAT(code_module, code_presentation) AS id_course
+	id_student,
+	id_site,
+	date,
+	SUM(sum_click) AS total_click
+FROM clean.grp5_stg_oulad_studentVle
+GROUP BY id_student, id_site, date, code_module, code_presentation
+ORDER BY code_presentation, date;
 ```
 **Date Dimension Example:**
 ```sql
-DROP TABLE IF EXISTS sandbox.DimDate_Divine;
-CREATE TABLE sandbox.DimDate_Divine
-engine = MergeTree
+CREATE TABLE mart.grp5_oulad_dim_courses
+ENGINE = MergeTree
 ORDER BY tuple()
 AS
+
 SELECT
-   DATE(invoice_date) AS date_id,
-   YEAR(invoice_date) AS year,
-   MONTH(invoice_date) AS month,
-   QUARTER(invoice_date) AS quarter
-FROM clean.stg_chinook__invoice_divine;
+    concat(code_module, code_presentation) AS id_course,
+    code_module,
+    code_presentation,
+    module_presentation_length
+FROM clean.grp5_stg_oulad_courses;
+
 ```
 ---
 ## 4. Collaboration & Setup
