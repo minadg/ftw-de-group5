@@ -11,9 +11,7 @@ We follow a **RAW → CLEAN → MART** layered architecture, transforming transa
 Open University Learning Analytics Dataset – Education analytics (Open University UK).
 
 **Goal of the Exercise:**
-The main objective is to design an end-to-end data pipeline that transforms raw OULAD CSV files into a dimensional star schema for analytics. The final layer powers interactive dashboards to answer key questions like:
-- Do demographics influence dropout?
-- How does engagement in the VLE impact performance?
+The main objective is to design an end-to-end data pipeline that transforms raw OULAD CSV files into a dimensional star schema for analytics. The final layer powers interactive dashboards to answer business questions.
 
 **Team Setup:**
 Group collaboration with task splitting across ingestion, modeling, BI dashboarding, and documentation.
@@ -22,6 +20,8 @@ We adjusted workloads based on availability and supported each other when issues
 **Environment Setup:**
 - Shared ClickHouse instance running in Docker for group development
 - Local dbt setups for individual testing and building
+
+
 ---
 ## 2. Architecture & Workflow
 **Pipeline Flow:**
@@ -84,6 +84,8 @@ docker compose --profile jobs run dlt python pipelines/09-dlt-oulad-pipeline.py
 ```
 ---
 ### CLEAN Layer – dbt Transformations
+![Alt text](../oulad/grp5_oulad_clean_tables.png "")
+
 **Example dbt model:** grp5_stg_oulad_student_assessment.sql
 ```sql
 {{ config(materialized="table", schema="clean", tags=["staging","oulad"]) }} 
@@ -176,7 +178,9 @@ FROM clean.grp5_stg_oulad_courses;
 * Are some presentations (Spring vs Autumn) more successful in retaining students?
 
 
-**Dashboards / Queries:**
+**Dashboards / Queries:** 
+*https://ftw.dataengineering.ph/dashboard/45-open-university-learning-analytics*
+
 Metabase dashboards included:
 * Age Band Droupout Percentage
 * Gender Droput Percentage
