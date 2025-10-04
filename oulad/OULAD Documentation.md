@@ -46,7 +46,7 @@ graph LR
 ---
 ## 3. Modeling Process
 ### Source Structure (Normalized)
-Chinook database is in **3NF**, containing normalized tables for sales, customers, employees, music metadata, and invoices.
+Open University Learning Analytics Dataset 
 ### RAW Layer – Ingestion with dlt (Python)
 ```python
 # dlt/pipeline.py
@@ -118,7 +118,9 @@ sources:
 * `grp5_oulad_dim_courses`
 * `grp5_oulad_dim_vle`
 
-**Fact-Dimension SQL Example:**
+![Alt text](../oulad/grp5_oulad_dim_fact_tables.png "")
+
+**Fact Table SQL Example:**
 ```sql
 DROP TABLE IF EXISTS mart.grp5_oulad_fact_vleinteraction;
 
@@ -136,20 +138,18 @@ FROM clean.grp5_stg_oulad_studentVle
 GROUP BY id_student, id_site, date, code_module, code_presentation
 ORDER BY code_presentation, date;
 ```
-**Date Dimension Example:**
+**Dimension Table SQL Example:**
 ```sql
 CREATE TABLE mart.grp5_oulad_dim_courses
 ENGINE = MergeTree
 ORDER BY tuple()
 AS
-
 SELECT
     concat(code_module, code_presentation) AS id_course,
     code_module,
     code_presentation,
     module_presentation_length
 FROM clean.grp5_stg_oulad_courses;
-
 ```
 ---
 ## 4. Collaboration & Setup
@@ -169,25 +169,24 @@ FROM clean.grp5_stg_oulad_courses;
 ---
 ## 5. Business Questions & Insights
 **Business Questions Explored:**
-* Which **genres generate the most revenue per country**?
-* How can we segment **customers based on spending tiers**?
-* What are the **monthly sales trends**?
-* Which **employees drive the most sales**?
-* What are the **most popular tracks by sales volume**?
-* How does **regional pricing vary** across markets?
+* Do **demographics(age, gender, or region) influence dropout rates**?
+* Are students with disabilities more likely to drop out or underperform?
+* What’s the **overall minimum level of VLE engagement associated with passing a module**?
+* Which **modules/presentations have the highest dropout rates**?
+* Are some presentations (Spring vs Autumn) more successful in retaining students?
+
 
 **Dashboards / Queries:**
 Metabase dashboards included:
-* Top Revenue by Genre per Country
-* Customer Segmentation (Spending Tier)
-* Monthly Sales Trend
-* Employee Sales Performance
-* Popular Tracks by Quantity Sold
-* Regional Pricing Insights (with map visualization)
+* Age Band Droupout Percentage
+* Gender Droput Percentage
+* Are students with disabilities more likely to drop out or underperform?
+* Which modules or presentations have the highest dropout rates?
+
 
 **Key Insights:**
-* **Rock** dominated as the top-selling genre in North America.
-* **Customer segmentation** revealed high-value tiers that could be targeted with loyalty campaigns.
+* 
+* 
 ---
 ## 6. Key Learnings
 **Technical Learnings:**
@@ -195,17 +194,16 @@ Metabase dashboards included:
 * Data transformations & schema design with **dbt**
 * Creating star schemas for BI queries
 * SQL joins, aggregations, and window functions in ClickHouse
+
 **Team Learnings:**
-* Coordinating in a hybrid shared-local setup
+* Set the business question first
 * Importance of **documentation** for onboarding and debugging
-* Value of **dashboards** in storytelling with data
+* 
 ---
 ## 7. Future Improvements
 * Performing data validation as the first process
+
 **Generalization:**
-This pipeline approach could be applied to other business domains, such as:
-* E-commerce (customer purchase history → sales insights)
-* Education (student activity logs → dropout prediction)
-* Entertainment (streaming analytics → top performers & content trends)
+
 
 ---
