@@ -165,11 +165,8 @@ FROM clean.grp5_stg_oulad_courses;
 * Visualization: Metabase dashboards
 * Documentation: README & presentation outline
 
-**Shared vs Local Work:**
-* Shared ClickHouse instance sometimes caused sync/version conflicts
-* Local dbt environments allowed independent testing before merging
-
 **Best Practices Learned:**
+* Use group tracker
 * Clear naming conventions for tables and models
 * Documenting assumptions and changes for smoother collaboration
 ---
@@ -208,12 +205,13 @@ Metabase dashboards included:
 
 **Team Learnings:**
 * Set the business question first
+* 
 * Importance of **documentation** for onboarding and debugging
 * 
 ---
 ## 7. Future Improvements
-* Performing data validation as the first process
-* P
+* Identify first the stakeholders
+* 
 
 **Generalization:**
 
