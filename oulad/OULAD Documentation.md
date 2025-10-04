@@ -180,8 +180,9 @@ FROM clean.grp5_stg_oulad_courses;
 Metabase dashboards included:
 * Age Band Droupout Percentage
 * Gender Droput Percentage
-* Are students with disabilities more likely to drop out or underperform?
-* Which modules or presentations have the highest dropout rates?
+* Impact of Disability on Dropout and Performance
+* Module & Presentation Dropout Rates
+* Minimum VLE Clicks Needed to Pass (per Module)
 
 
 **Key Insights:**
@@ -207,3 +208,4 @@ Metabase dashboards included:
 
 
 ---
+
