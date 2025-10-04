@@ -34,7 +34,9 @@ graph LR
 ```
 **Tools Used:**
 * Download the csv files of OULAD --> dlt/extra-loads/staging/OULAD
+
 ![Alt text](../oulad/grp5_oulad_csv.png "")
+
 * **Ingestion:** dlt (Python)
 * **Database:** ClickHouse (Docker setup)
 * **Modeling:** dbt (SQL-based transformations)
