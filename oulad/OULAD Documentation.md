@@ -182,16 +182,18 @@ FROM clean.grp5_stg_oulad_courses;
 *https://ftw.dataengineering.ph/dashboard/45-open-university-learning-analytics*
 
 Metabase dashboards included:
+
+**Demographics**
 * Age Band Droupout Percentage
 * Gender Droput Percentage
+* Region Droupout Rates
 * Impact of Disability on Dropout and Performance
+
+**Student Assessment**
+* Retention per season
 * Module & Presentation Dropout Rates
 * Minimum VLE Clicks Needed to Pass (per Module)
 
-
-**Key Insights:**
-* 
-* 
 ---
 ## 6. Key Learnings
 **Technical Learnings:**
