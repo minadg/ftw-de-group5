@@ -33,6 +33,8 @@ graph LR
     D --> E[Metabase dashboards]
 ```
 **Tools Used:**
+* Download the csv files of OULAD --> dlt/extra-loads/staging/OULAD
+![Alt text](../oulad/grp5_oulad_csv.png "")
 * **Ingestion:** dlt (Python)
 * **Database:** ClickHouse (Docker setup)
 * **Modeling:** dbt (SQL-based transformations)
@@ -209,6 +211,7 @@ Metabase dashboards included:
 ---
 ## 7. Future Improvements
 * Performing data validation as the first process
+* P
 
 **Generalization:**
 
