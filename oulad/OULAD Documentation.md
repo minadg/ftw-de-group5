@@ -112,6 +112,71 @@ sources:
    tables:
      - name: grp5_oulad_student_assessment
 ```
+**Data Quality Check:**
+**Example schema.yml in Clean** 
+```yaml
+models:
+  - name: grp5_stg_oulad_student_info
+    columns:
+      - name: code_module
+        tests: [not_null]
+      - name: code_presentation
+        tests: [not_null]
+      - name: id_student
+        tests: [not_null]
+      - name: gender
+        tests:
+          - accepted_values: { values: ["M", "F", "Unknown"] }
+      - name: region
+        tests: [not_null]
+      - name: highest_education
+        tests:
+          - accepted_values:
+              {
+                values:
+                  [
+                    "A Level or Equivalent",
+                    "HE Qualification",
+                    "Lower Than A Level",
+                    "No Formal quals",
+                    "Post Graduate Qualification",
+                  ],
+              }
+      - name: imd_band
+        tests:
+          - accepted_values:
+              {
+                values:
+                  [
+                    "0-10%",
+                    "10-20%",
+                    "20-30%",
+                    "30-40%",
+                    "40-50%",
+                    "50-60%",
+                    "60-70%",
+                    "70-80%",
+                    "80-90%",
+                    "90-100%",
+                    NULL,
+                  ],
+              }
+      - name: age_band
+        tests:
+          - accepted_values: { values: ["0-35", "35-55", "55<="] }
+      - name: num_of_prev_attempts
+        tests: [not_null]
+      - name: studied_credits
+        tests: [not_null]
+      - name: disability
+        tests:
+          - accepted_values: { values: ["Y", "N"] }
+      - name: final_result
+        tests:
+          - accepted_values:
+              { values: ["Pass", "Fail", "Withdrawn", "Distinction"] }
+```
+
 ---
 ### MART Layer – Star Schema Design
 **Fact Table:**
@@ -217,4 +282,5 @@ Metabase dashboards included:
 
 
 ---
+
 
