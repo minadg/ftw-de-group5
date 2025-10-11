@@ -112,7 +112,7 @@ sources:
    tables:
      - name: grp5_oulad_student_assessment
 ```
-### Data Quality Check
+### Data Quality Test
 **Example schema.yml in Clean** 
 ```yaml
 models:
@@ -222,6 +222,80 @@ SELECT
     module_presentation_length
 FROM clean.grp5_stg_oulad_courses;
 ```
+### Data Quality Tests
+**Purpose:** Ensure data consistency and identify potential issues within each table.
+* Data Quality Check for each Table
+  - grp5_dq_oulad_assessment_summary
+  - grp5_dq_oulad_courses_summary
+  - grp5_dq_oulad_studenVle_summary
+  - grp5_dq_oulad_student_assessment_summary
+  - grp5_dq_oulad_student_info_summary
+  - grp5_dq_oulad_student_registration_summary
+  - grp5_dq_oulad_vle_summary
+* Anomaly Detection SQL for each Table
+  - grp5_dq_oulad_assessments_anomalies
+  - grp5_dq_oulad_courses_anomalies
+  - grp5_dq_oulad_studentVle_anomalies
+  - grp5_dq_oulad_student_assessment_anomalies
+  - grp5_dq_oulad_student_info_anomalies
+  - grp5_dq_oulad_student_registration_anomalies
+  - grp5_dq_oulad_vle_anomalies
+ 
+**Example schema.yml in MART**
+```yaml
+version: 2
+
+models:
+  - name: grp5_dq_oulad_student_info_summary
+    description: "DQ KPIs derived from clean MPG model vs raw source (demo-friendly)."
+    columns:
+      - name: row_count_raw
+        description: "Total rows in raw source table"
+      - name: row_count_clean
+        description: "Total rows in clean model"
+      - name: dropped_rows
+        description: "raw minus clean (proxy for filtered rows)"
+      - name: pct_null_code_module
+        description: "% of rows with NULL code_module in clean"
+      - name: pct_null_code_presentation
+        description: "% of rows with NULL code_presentation in clean"
+      - name: pct_null_id_student
+        description: "% of rows with NULL id_student in clean"
+      - name: pct_null_region
+        description: "% of rows with NULL region in clean"
+      - name: invalid_gender
+        description: "Rows where gender not in {'M', 'F', 'Unknown'}"
+      - name: invalid_highest_education
+        description: "Rows where highest_education not in {
+          'A Level or Equivalent',
+          'HE Qualification',
+          'Lower Than A Level',
+          'No Formal quals'}"
+      - name: invalid_imd_band
+        description: "Rows where imd_band not in {'0-10%',
+          '10-20%',
+          '20-30%',
+          '30-40%',
+          '40-50%',
+          '50-60%',
+          '60-70%',
+          '70-80%',
+          '80-90%',
+          '90-100%'} and imd_band is not null"
+      - name: invalid_age_band
+        description: "Rows where age_band not in {'0-35', '35-55', '55<='}"
+      - name: invalid_disability
+        description: "Rows where disability not in {'Y', 'N'}"
+      - name: invalid_final_result
+        description: "Rows where final_result not in {'Pass', 'Fail', 'Withdrawn', 'Distinction'}"
+      - name: nonpositive_num_of_prev_attempts
+        description: "Rows where num_of_prev_attempts < 0"
+      - name: nonpositive_studied_credits
+        description: "Rows where studied_credits >= 0"
+
+  - name: grp5_dq_oulad_student_info_anomalies
+    description: "Row-level drilldown of records violating simple DQ rules."
+```
 ---
 ## 4. Collaboration & Setup
 **Task Splitting:**
@@ -282,6 +356,7 @@ Metabase dashboards included:
 
 
 ---
+
 
 
 
