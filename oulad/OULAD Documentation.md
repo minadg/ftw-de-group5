@@ -344,18 +344,21 @@ Metabase dashboards included:
 
 **Team Learnings:**
 * Set the business question first
-* 
+* Test early, test often
 * Importance of **documentation** for onboarding and debugging
-* 
+* Prioritize data quality
 ---
 ## 7. Future Improvements
 * Identify first the stakeholders
-* 
+* Improve model documentation for clarity
+* Enhance data validation processes
+* Refine collaboration tools for efficiency
 
 **Generalization:**
-
+* Effective data management requires clear communication, consistent validation, and ongoing collaboration to ensure accuracy and scalability.
 
 ---
+
 
 
 
