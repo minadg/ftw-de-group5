@@ -112,7 +112,7 @@ sources:
    tables:
      - name: grp5_oulad_student_assessment
 ```
-**Data Quality Check:**
+### Data Quality Check
 **Example schema.yml in Clean** 
 ```yaml
 models:
@@ -282,5 +282,6 @@ Metabase dashboards included:
 
 
 ---
+
 
 
