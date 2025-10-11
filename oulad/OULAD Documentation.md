@@ -224,7 +224,7 @@ FROM clean.grp5_stg_oulad_courses;
 ```
 ### Data Quality Tests
 **Purpose:** Ensure data consistency and identify potential issues within each table.
-## Data Quality Check for each Table:
+# Data Quality Check for each Table:
   * `grp5_dq_oulad_assessment_summary`
   * `grp5_dq_oulad_courses_summary`
   * `grp5_dq_oulad_studenVle_summary`
@@ -232,7 +232,7 @@ FROM clean.grp5_stg_oulad_courses;
   * `grp5_dq_oulad_student_info_summary`
   * `grp5_dq_oulad_student_registration_summary`
   * `grp5_dq_oulad_vle_summary`
-## Anomaly Detection SQL for each Table:
+# Anomaly Detection SQL for each Table:
   * `grp5_dq_oulad_assessments_anomalies`
   * `grp5_dq_oulad_courses_anomalies`
   * `grp5_dq_oulad_studentVle_anomalies`
@@ -356,6 +356,7 @@ Metabase dashboards included:
 
 
 ---
+
 
 
 
